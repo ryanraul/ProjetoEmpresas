@@ -54,8 +54,10 @@ D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\bin\Debug\netcoreapp3.1\Emprea
 D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\bin\Debug\netcoreapp3.1\EmpreasAPI.dll
 D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\bin\Debug\netcoreapp3.1\EmpreasAPI.pdb
 D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
-D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\obj\Debug\netcoreapp3.1\EmpreasAPI.csproj.CoreCompileInputs.cache
-D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\obj\Debug\netcoreapp3.1\EmpreasAPI.MvcApplicationPartsAssemblyInfo.cache
 D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\obj\Debug\netcoreapp3.1\EmpreasAPI.dll
 D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\obj\Debug\netcoreapp3.1\EmpreasAPI.pdb
 D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\obj\Debug\netcoreapp3.1\EmpreasAPI.genruntimeconfig.cache
+D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\obj\Debug\netcoreapp3.1\EmpreasAPI.csproj.CoreCompileInputs.cache
+D:\Projetos\ProjetoEmpresas\EmpreasAPI\EmpreasAPI\obj\Debug\netcoreapp3.1\EmpreasAPI.MvcApplicationPartsAssemblyInfo.cache
