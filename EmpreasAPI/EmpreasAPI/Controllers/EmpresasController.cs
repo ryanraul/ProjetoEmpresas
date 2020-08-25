@@ -95,7 +95,7 @@ namespace EmpreasAPI.Controllers
                     var data = await content.ReadAsAsync<Empresa>();
                     if(data.status != "OK")
                     {
-                        return NotFound(new { message = $"{data.Message}" });
+                        return Ok(new { message = $"{data.Message}" });
                     }
                     else
                     {
