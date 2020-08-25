@@ -2,7 +2,7 @@ import './Footer.css'
 import React from 'react'
 
 export default props=>
-    <footer>
+    <footer className="footer">
         <span>
             <strong className="text-danger">
                 Desenvolvido por Raul Ryan
