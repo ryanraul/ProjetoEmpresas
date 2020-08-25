@@ -4,7 +4,7 @@ import React from 'react'
 export default props=>
     <footer>
         <span>
-            <strong>
+            <strong className="text-danger">
                 Desenvolvido por Raul Ryan
             </strong>
         </span>
