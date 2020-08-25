@@ -19,14 +19,38 @@ namespace EmpreasAPI.Controllers
         [Route("")]
         public async Task<ActionResult<List<Empresa>>> Get([FromServices] DataContext context)
         {
-            var empresas = await context.Empresas.ToListAsync();
+            var empresas = await context.Empresas
+                .Include(x=>x.Atividade_principal)
+                .Include(x=>x.atividades_secundarias)
+                .Include(x=>x.qsa)
+                .Include(x=>x.billing)
+                .ToListAsync();
             if (empresas == null)
             {
-                return NotFound(new { message = "Nenhuma empresa encontrada" });
+                return Ok(new { message = "Nenhuma empresa encontrada" });
             }
             return empresas;
         }
 
+        [HttpGet]
+        [Route("Cnpj/{cnpj}")]
+        public async Task<ActionResult<Empresa>> GetByCnpj(
+            [FromServices] DataContext context,
+            string cnpj)
+        {
+            var empresa = await context.Empresas
+                .Include(x=>x.Atividade_principal)
+                .Include(x=>x.atividades_secundarias)
+                .Include(x=>x.qsa)
+                .Include(x=>x.billing)
+                .FirstOrDefaultAsync(x=>x.Cnpj == cnpj);
+            if(empresa == null)
+            {
+                return Ok(new { message = "Empresa nao encontrada" });
+            }
+            return empresa;
+        }
+        
         [HttpPost]
         [Route("")]
         public async Task<ActionResult<Empresa>> Post(
@@ -36,7 +60,7 @@ namespace EmpreasAPI.Controllers
             var verif_cnpj = await context.Empresas.FirstOrDefaultAsync(x => x.Cnpj == model.Cnpj);
             if (verif_cnpj != null)
             {
-                return BadRequest(new { message = "Cnpj ja Cadastrado" });
+                return Ok(new { message = "Cnpj ja Cadastrado" });
             }
 
             if (ModelState.IsValid)
@@ -58,7 +82,7 @@ namespace EmpreasAPI.Controllers
                         data.Cnpj = model.Cnpj;
                         context.Empresas.Add(data);
 
-                        //await context.SaveChangesAsync();
+                        await context.SaveChangesAsync();
                         return data;
                     }
                 }
