@@ -7,7 +7,7 @@ export default props=>
         <Header />
         <main className="content form-area">
             <div className="p-3 mt-3 mb-3">
-                <h2>Main</h2>
+                {props.children}
             </div>
         </main>
     </React.Fragment>

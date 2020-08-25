@@ -1,6 +1,5 @@
 aside.menu-area{
     display: flex;
-    font-weight: 600;
     justify-content: flex-end;
 
 }
@@ -16,6 +15,7 @@ aside.menu-area{
 }
 
 .menu a .font-nav{
+    font-weight: 600;
     font-family: 'Montserrat', 'sans-serif';
 }
 
