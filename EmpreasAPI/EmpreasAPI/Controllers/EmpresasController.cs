@@ -25,7 +25,7 @@ namespace EmpreasAPI.Controllers
                 .Include(x=>x.qsa)
                 .Include(x=>x.billing)
                 .ToListAsync();
-            if (empresas == null)
+            if (!empresas.Any())
             {
                 return Ok(new { message = "Nenhuma empresa encontrada" });
             }
@@ -44,6 +44,26 @@ namespace EmpreasAPI.Controllers
                 .Include(x=>x.qsa)
                 .Include(x=>x.billing)
                 .FirstOrDefaultAsync(x=>x.Cnpj == cnpj);
+            if(empresa == null)
+            {
+                return Ok(new { message = "Empresa nao encontrada" });
+            }
+            return empresa;
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Empresa>> GetById(
+            [FromServices] DataContext context,
+            int id)
+        {
+            var empresa = await context.Empresas
+                .Include(x=>x.Atividade_principal)
+                .Include(x=>x.atividades_secundarias)
+                .Include(x=>x.qsa)
+                .Include(x=>x.billing)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if(empresa == null)
             {
                 return Ok(new { message = "Empresa nao encontrada" });
@@ -94,6 +114,30 @@ namespace EmpreasAPI.Controllers
             else
             {
                 return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Empresa>> DeleteById(
+            [FromServices] DataContext context,
+            int id)
+        {
+            var empresa = await context.Empresas.FirstOrDefaultAsync(x => x.Id == id);
+            if(empresa == null)
+            {
+                return Ok(new { message = "Empresa nao encontrada!" });
+            }
+
+            try
+            {
+                context.Empresas.Remove(empresa);
+                await context.SaveChangesAsync();
+                return empresa;
+            }
+            catch (Exception)
+            {
+                return Ok(new { message = "Nao foi possivel remover a empresa" });
             }
         }
     }
