@@ -3,7 +3,6 @@ import React from 'react'
 export default props=>
     <React.Fragment>
         <hr/>
-        <center><strong className="mb-3">Mais informacoes da Empresa (Cnpj:)</strong></center>
             <table className="table-person mt-3">
                 <thead>
                     {

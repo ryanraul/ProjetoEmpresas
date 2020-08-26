@@ -26,7 +26,7 @@ export default props=>
                             <td>{empresa.situacao}</td>
                             <td>
                                 <a href={`#/empresa_detalhes/${empresa.cnpj}`} className="text-primario">Detalhes</a><br></br>
-                                <a href={`#/`} className="text-primario">Deletar</a>
+                                <a href={`#/delete/${empresa.id}`} className="text-primario">Deletar</a>
                             </td>
                         </tr>
                     )   

@@ -35,7 +35,11 @@ export default class ListaEmpresas extends Component{
         if(info != null){
             const keys = Object.keys(info)
             return(
-                <TabelaDetalhes keys={keys} {...this.state} />
+                <React.Fragment>
+                    <center><strong className="mb-3">Mais informacoes da Empresa (Cnpj: {info.cnpj})</strong></center>
+                    <TabelaDetalhes keys={keys} {...this.state} />
+                </React.Fragment>
+                
             )
         }    
     }
