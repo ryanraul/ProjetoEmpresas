@@ -22,8 +22,10 @@ export default class CadEmpresa extends Component{
         const cnpj_cad = { cnpj: empresa.cnpj}
         this.setState({carregado: true})
         //const response = await api.get('/Cnpj/'+cnpj_cad.cnpj)
-        const response = await api.post('',cnpj_cad);
-        this.setState({info: response.data})
+        const response = await api.post('',cnpj_cad)
+        if(this.state.carregado !== false){
+            this.setState({info: response.data})  
+        }
         //console.log(response.data)
     }
 
