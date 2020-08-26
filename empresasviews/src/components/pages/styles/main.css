@@ -1,0 +1,52 @@
+.input-cnpj {
+    padding: 5px 25%;
+}
+
+button.btn-op{
+    width: 110px;
+    height: 40px;
+    background-color: #ef323b;
+    color: #fff;
+    border: none;
+    font-weight: 600;
+}
+
+button.btn-op:hover{
+    cursor: pointer;
+    background-color: #d01f30;
+}
+
+table.table-person {
+    font-family: 'Arial';
+    font-size: 14px;
+    margin: 25px auto;
+    border-collapse: collapse;
+    border: 1px solid #eee;
+    border-bottom: 2px solid var(--bg-primary);
+    box-shadow: 
+       0px 0px 20px rgba(0,0,0,0.04),
+       0px 10px 20px rgba(0,0,0,0.04),
+       0px 20px 20px rgba(0,0,0,0.04),
+       0px 30px 20px rgba(0,0,0,0.04);
+}
+
+tr:hover {
+    background: #f4f4f4; 
+}
+
+th, td {
+    color: #000;
+    font-weight: 500;
+    border: 1px solid #eee;
+    padding: 12px 35px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th {
+    background: var(--cor-primaria);
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+
+}
