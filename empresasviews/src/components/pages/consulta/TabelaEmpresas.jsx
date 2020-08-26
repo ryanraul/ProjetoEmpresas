@@ -1,5 +1,3 @@
-import '../styles/main.css'
-
 import React from 'react'
 
 export default props=>
@@ -27,7 +25,7 @@ export default props=>
                             <td>{empresa.uf}</td>
                             <td>{empresa.situacao}</td>
                             <td>
-                                <a href={`#/detalhes/`} className="text-primario">Detalhes</a><br></br>
+                                <a href={`#/empresa_detalhes/${empresa.cnpj}`} className="text-primario">Detalhes</a><br></br>
                                 <a href={`#/`} className="text-primario">Deletar</a>
                             </td>
                         </tr>
