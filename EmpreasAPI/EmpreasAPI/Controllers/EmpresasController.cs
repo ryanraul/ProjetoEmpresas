@@ -108,7 +108,7 @@ namespace EmpreasAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest(ModelState);
+                    return Ok(new { message = $"Aguarde um pouco ate o proximo registro (Erro: {httpResponseMessage.StatusCode})"});
                 }
             }
             else
