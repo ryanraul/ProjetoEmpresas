@@ -7,6 +7,6 @@ export default props=>
         <nav className="menu">
             <NavItems rout='home' className="navitems" icone='home' titulo='INICIO'/>
             <NavItems rout='cad_empresas' className="navitems" icone='building' titulo='CADASTRAR EMPRESA'/>
-            <NavItems rout='home' className="navitems" icone='list' titulo='CONSULTAR EMPRESAS'/>
+            <NavItems rout='list_empresas' className="navitems" icone='list' titulo='CONSULTAR EMPRESAS'/>
         </nav>
     </aside>

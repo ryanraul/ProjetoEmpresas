@@ -18,17 +18,22 @@ export default class CadEmpresa extends Component{
     state = {...initialState}
 
     async cadastrar(e){
-        const cnpj = this.state.cnpj
+        const empresa = {...this.state}
+        const cnpj_cad = { cnpj: empresa.cnpj}
         this.setState({carregado: true})
-        const response = await api.get('/Cnpj/'+cnpj)
+        //const response = await api.get('/Cnpj/'+cnpj_cad.cnpj)
+        const response = await api.post('',cnpj_cad);
         this.setState({info: response.data})
-        console.log(response.data)
+        //console.log(response.data)
     }
 
     updateField(e){
         var cnpj = this.state.cnpj
         cnpj = e.target.value
         this.setState({cnpj})
+        if(this.state.carregado === true){
+            this.setState({carregado: initialState.carregado, info: initialState.info})
+        }
     }
 
     clear(){
@@ -67,8 +72,7 @@ export default class CadEmpresa extends Component{
             return(
                 <center><h5 className="font-weight-bold mt-4 mb-4"><span className="text-primario fa fa-exclamation-circle mr-2" />{info.message}</h5></center>
             )
-        }
-        if(carregado){
+        }else if(carregado){
             return(
                 <div>
                     <center><h5 className="font-weight-bold mt-4 mb-4">Carregando...</h5></center>

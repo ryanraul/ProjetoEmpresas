@@ -18,6 +18,27 @@ button.btn-op:hover{
 .text-primario{
     color: var(--cor-primaria);
 }
+a{
+    color: var(--cor-primaria);
+}
+
+ul li{
+    font-family: monospace;
+    font-size: 16px;
+    margin-top: 5px;
+}
+table.table-person a{
+    font-weight: 600;
+    color: var(--cor-primaria);
+    text-decoration: none;
+}
+
+table.table-person a:hover{
+    color: #bd1d24;
+    border-bottom: 2px solid #bd1d24;
+}
+
+
 table.table-person {
     font-family: 'Arial';
     font-size: 14px;
