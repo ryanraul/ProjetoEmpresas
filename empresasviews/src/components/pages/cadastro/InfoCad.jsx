@@ -7,7 +7,6 @@ export default props =>
                 <table className="table-person mt-3">
                     <thead>
                         <tr>
-                        <th scope="col">Cnpj</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Fantasia</th>
                         <th scope="col">Uf</th>
@@ -16,11 +15,10 @@ export default props =>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{props.cnpj}</td>
-                            <td>NOME</td>
-                            <td>fantasia</td>
-                            <td>uf</td>
-                            <td>situacao</td>
+                            <td>{props.info.nome}</td>
+                            <td>{props.info.fantasia}</td>
+                            <td>{props.info.uf}</td>
+                            <td>{props.info.situacao}</td>
                         </tr>
                     </tbody>
                 </table>

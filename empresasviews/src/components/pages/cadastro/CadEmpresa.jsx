@@ -5,6 +5,7 @@ import { Component } from 'react'
 
 import Main from '../../template/main/Main'
 import InfoCad from './InfoCad'
+import api from '../../../Api/api'
 
 const initialState = {
     cnpj: '',
@@ -16,6 +17,13 @@ export default class CadEmpresa extends Component{
 
     state = {...initialState}
 
+    async cadastrar(e){
+        const cnpj = this.state.cnpj
+        this.setState({carregado: true})
+        const response = await api.get('/Cnpj/'+cnpj)
+        this.setState({info: response.data})
+        console.log(response.data)
+    }
 
     updateField(e){
         var cnpj = this.state.cnpj
@@ -41,19 +49,39 @@ export default class CadEmpresa extends Component{
                     </div>
                 <hr/>
                 <div className="col-12 d-flex justify-content-end">
-                    <button className="btn-op" onClick={e=>this.clear(e)}>Cadastrar</button>
+                    <button className="btn-op" onClick={e=>this.cadastrar(e)}>Cadastrar</button>
                     <button className="btn-op ml-2" onClick={e=>this.clear(e)}>Cancelar</button>
                 </div>
             </div>
         )
     }
 
+    renderInfo(){
+        const {carregado, info} = {...this.state}
+
+        if(info.status === 'OK'){
+            return(
+                <InfoCad {...this.state}/>
+            )
+        }else if(info.message != null){
+            return(
+                <center><h5 className="font-weight-bold mt-4 mb-4"><span className="text-primario fa fa-exclamation-circle mr-2" />{info.message}</h5></center>
+            )
+        }
+        if(carregado){
+            return(
+                <div>
+                    <center><h5 className="font-weight-bold mt-4 mb-4">Carregando...</h5></center>
+                </div>
+            )
+        }
+    }
 
     render(){
         return(
             <Main>
                 {this.renderForm()}
-                <InfoCad {...this.state}/>
+                {this.renderInfo()}
             </Main>
         )
     }

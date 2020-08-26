@@ -15,7 +15,9 @@ button.btn-op:hover{
     cursor: pointer;
     background-color: #d01f30;
 }
-
+.text-primario{
+    color: var(--cor-primaria);
+}
 table.table-person {
     font-family: 'Arial';
     font-size: 14px;
