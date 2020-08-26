@@ -1,5 +1,6 @@
 import React from 'react'
-import Main from '../template/Main'
+import Main from '../../template/main/Main'
+import GitLogo from '../../../assets/GitHub-Mark/PNG/gitlogo32.png'
 
 export default props =>
     <Main>
@@ -10,5 +11,5 @@ export default props =>
                 para uma API responsavel por fazer busca do Cnpj no web service da receita federal, e 
                 armazenar as informacoes adquirida em uma base de dados
             </p>
-        
+        <center><a href="https://github.com/ryanraul/ProjetoEmpresas" className="btn btn-dark text-light">Repositorio do Projeto <img src={GitLogo} alt="gitlogo"></img></a></center>  
     </Main>    

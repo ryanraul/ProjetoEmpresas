@@ -2,11 +2,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 
-import '../main/App.css'
+import './App.css'
 import React from 'react'
-import Logo from '../template/Logo'
-import Footer from '../template/Footer'
-import Home from '../home/Home'
+import Logo from '../template/logo/Logo'
+import Footer from '../template/footer/Footer'
+import Home from '../pages/home/Home'
 
 
 export default props=>
