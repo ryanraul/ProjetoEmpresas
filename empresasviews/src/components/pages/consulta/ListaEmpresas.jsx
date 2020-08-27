@@ -21,8 +21,7 @@ export default class ListaEmpresas extends Component{
         const response = await api.get('').catch(error=> this.setState({carregado: initialState.carregado}))
         if(this.state.carregado !== false){
             this.setState({empresas: response.data})  
-        }
-               
+        }   
     }
 
     renderTable(){

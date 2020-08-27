@@ -6,11 +6,14 @@ import { Component } from 'react'
 import Main from '../../template/main/Main'
 import InfoCad from './InfoCad'
 import api from '../../../Api/api'
+import MensagemErro from '../consulta/MensagemErro'
+import {cnpjMask} from './CnpjMask'
 
 const initialState = {
     cnpj: '',
     carregado: false,
-    info: []
+    info: [],
+    erro: false
 }
 
 export default class CadEmpresa extends Component{
@@ -22,7 +25,7 @@ export default class CadEmpresa extends Component{
         const cnpj_cad = { cnpj: empresa.cnpj}
         this.setState({carregado: true})
         //const response = await api.get('/Cnpj/'+cnpj_cad.cnpj)
-        const response = await api.post('',cnpj_cad)
+        const response = await api.post('',cnpj_cad).catch(error=> this.setState({carregado: initialState.carregado, erro: true}))
         if(this.state.carregado !== false){
             this.setState({info: response.data})  
         }
@@ -31,7 +34,7 @@ export default class CadEmpresa extends Component{
 
     updateField(e){
         var cnpj = this.state.cnpj
-        cnpj = e.target.value
+        cnpj = cnpjMask(e.target.value)
         this.setState({cnpj})
         if(this.state.carregado === true){
             this.setState({carregado: initialState.carregado, info: initialState.info})
@@ -64,7 +67,7 @@ export default class CadEmpresa extends Component{
     }
 
     renderInfo(){
-        const {carregado, info} = {...this.state}
+        const {carregado, info, erro} = {...this.state}
 
         if(info.status === 'OK'){
             return(
@@ -80,6 +83,10 @@ export default class CadEmpresa extends Component{
                     <center><h5 className="font-weight-bold mt-4 mb-4">Carregando...</h5></center>
                 </div>
             )
+        }else if(erro){
+            return(
+                <MensagemErro/>
+            )      
         }
     }
 
