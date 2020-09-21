@@ -23,16 +23,23 @@ namespace EmpreasAPI.Controllers
             return empresa;
         }
 
+        public async Task<List<Empresa>> ListaEmpresas(DataContext context)
+        {
+            var empresas = await context.Empresas
+                .Include(x => x.AtividadePrincipal)
+                .Include(x => x.AtividadesSecundarias)
+                .Include(x => x.Qsa)
+                .Include(x => x.Billing)
+                .ToListAsync();
+            return empresas;
+        }
+
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Empresa>>> Get([FromServices] DataContext context)
         {
-            var empresas = await context.Empresas
-                .Include(x=>x.AtividadePrincipal)
-                .Include(x=>x.AtividadesSecundarias)
-                .Include(x=>x.Qsa)
-                .Include(x=>x.Billing)
-                .ToListAsync();
+            var empresas = await ListaEmpresas(context);
+
             if (!empresas.Any())
                 return Ok(new { message = "Nenhuma empresa encontrada" });
             return empresas;
