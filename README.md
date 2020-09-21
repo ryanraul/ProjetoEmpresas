@@ -51,3 +51,21 @@ Primeiramente acrescente o banco de dados em seu servidor local, através do Sql
 - Ao executar a API, verifique a porta em que esta sendo executada, certifique-se de que a porta é a mesma da que esta sendo referenciada na "baseURL" do arquivo api.js (.../empresaviews/src/Api/api.js).
 
 <img src = "https://ik.imagekit.io/ryanraul/print3_2ddoLZKYfJ.jpg">
+
+## Melhorias
+
+- Aplicação do PascalCase nas propriedades da Classe Empresa
+	> **Motivo:** Facilidade na leitura e atende aos regulamentos indicado pela Microsoft's .NET Framework
+	
+- Retirar algumas abreviações atribuidas em variaveis locais
+	> **Motivo:** Prevenção de abreviações inconsistentes e atende aos regulamentos indicado pela Microsoft's .NET Framework
+		
+- Criação de um metodo para verificar se a empresa foi encontrada
+	> **Motivo:** Evitar duplicação de código
+			
+- Retirar o uso do "_" (underline) nos nomes das variaveis
+	> **Motivo:** Atende aos regulamentos indicado pela Microsoft's .NET Framework e torna o código mais natural para leitura
+			
+- Criação de um metodo para verificar se a CNPJ ja foi cadastrado
+	> **Motivo:** Evitar duplicação de código
+	
