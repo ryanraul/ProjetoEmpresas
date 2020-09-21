@@ -12,7 +12,7 @@ namespace EmpreasAPI.Data
         public DbSet<Empresa> Empresas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=BDEmpresas;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BDEmpresas;Integrated Security=True");
         }
     }
 }

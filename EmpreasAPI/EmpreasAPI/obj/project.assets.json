@@ -7198,23 +7198,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\190953\\.nuget\\packages\\": {},
+    "C:\\Users\\raul.silva\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
+      "projectUniqueName": "C:\\Users\\raul.silva\\Documents\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
       "projectName": "EmpreasAPI",
-      "projectPath": "D:\\Projetos\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
-      "packagesPath": "C:\\Users\\190953\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\obj\\",
+      "projectPath": "C:\\Users\\raul.silva\\Documents\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
+      "packagesPath": "C:\\Users\\raul.silva\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\raul.silva\\Documents\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\190953\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\raul.silva\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7271,7 +7271,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
