@@ -51,7 +51,6 @@ namespace EmpreasAPI.Models
         public int Id { get; set; }
         [ForeignKey("Empresa")]
         public int EmpresaId { get; set; }
-        //public virtual Empresa Empresa { get; set; }
         public string Text { get; set; }
         public string Code { get; set; }
     }
@@ -62,7 +61,6 @@ namespace EmpreasAPI.Models
         public int Id { get; set; }
         [ForeignKey("Empresa")]
         public int EmpresaId { get; set; }
-        //public virtual Empresa Empresa { get; set; }
         public string Text { get; set; }
         public string Code { get; set; }
     }
@@ -73,7 +71,6 @@ namespace EmpreasAPI.Models
         public int Id { get; set; }
         [ForeignKey("Empresa")]
         public int EmpresaId { get; set; }
-        //public virtual Empresa Empresa { get; set; }
         public string Qual { get; set; }
         public string Nome { get; set; }
         public string QualRepLegal { get; set; }
@@ -86,7 +83,6 @@ namespace EmpreasAPI.Models
         public int Id { get; set; }
         [ForeignKey("Empresa")]
         public int EmpresaId { get; set; }
-        //public virtual Empresa Empresa { get; set; }
         public bool Free { get; set; }
         public bool Database { get; set; }
     }

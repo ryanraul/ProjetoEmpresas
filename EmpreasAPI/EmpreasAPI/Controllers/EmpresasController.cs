@@ -33,7 +33,7 @@ namespace EmpreasAPI.Controllers
         }
 
         [HttpGet]
-        [Route("Cnpj/{cnpj}")]
+        [Route("CNPJ/{cnpj}")]
         public async Task<ActionResult<Empresa>> GetByCnpj(
             [FromServices] DataContext context,
             string cnpj)
@@ -77,8 +77,8 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             [FromBody] Empresa model)
         {
-            var verif_cnpj = await context.Empresas.FirstOrDefaultAsync(x => x.Cnpj == model.Cnpj);
-            if (verif_cnpj != null)
+            var verificarCnpj = await context.Empresas.FirstOrDefaultAsync(x => x.Cnpj == model.Cnpj);
+            if (verificarCnpj != null)
             {
                 return Ok(new { message = "Cnpj ja Cadastrado" });
             }
