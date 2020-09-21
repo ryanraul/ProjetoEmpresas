@@ -20,10 +20,10 @@ namespace EmpreasAPI.Controllers
         public async Task<ActionResult<List<Empresa>>> Get([FromServices] DataContext context)
         {
             var empresas = await context.Empresas
-                .Include(x=>x.Atividade_principal)
-                .Include(x=>x.atividades_secundarias)
-                .Include(x=>x.qsa)
-                .Include(x=>x.billing)
+                .Include(x=>x.AtividadePrincipal)
+                .Include(x=>x.AtividadesSecundarias)
+                .Include(x=>x.Qsa)
+                .Include(x=>x.Billing)
                 .ToListAsync();
             if (!empresas.Any())
             {
@@ -39,10 +39,10 @@ namespace EmpreasAPI.Controllers
             string cnpj)
         {
             var empresa = await context.Empresas
-                .Include(x=>x.Atividade_principal)
-                .Include(x=>x.atividades_secundarias)
-                .Include(x=>x.qsa)
-                .Include(x=>x.billing)
+                .Include(x => x.AtividadePrincipal)
+                .Include(x => x.AtividadesSecundarias)
+                .Include(x => x.Qsa)
+                .Include(x => x.Billing)
                 .FirstOrDefaultAsync(x=>x.Cnpj == cnpj);
             if(empresa == null)
             {
@@ -58,10 +58,10 @@ namespace EmpreasAPI.Controllers
             int id)
         {
             var empresa = await context.Empresas
-                .Include(x=>x.Atividade_principal)
-                .Include(x=>x.atividades_secundarias)
-                .Include(x=>x.qsa)
-                .Include(x=>x.billing)
+                .Include(x => x.AtividadePrincipal)
+                .Include(x => x.AtividadesSecundarias)
+                .Include(x => x.Qsa)
+                .Include(x => x.Billing)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if(empresa == null)
@@ -93,7 +93,7 @@ namespace EmpreasAPI.Controllers
                 {
                     var content = httpResponseMessage.Content;
                     var data = await content.ReadAsAsync<Empresa>();
-                    if(data.status != "OK")
+                    if(data.Status != "OK")
                     {
                         return Ok(new { message = $"{data.Message}" });
                     }
