@@ -15,6 +15,14 @@ namespace EmpreasAPI.Controllers
     [Route("v1/empresas")]
     public class EmpresasController : ControllerBase
     {
+
+        public ActionResult<Empresa> VerificarEmpresa(Empresa empresa)
+        {
+            if(empresa == null)
+                return Ok(new { message = "Empresa nao encontrada" });
+            return empresa;
+        }
+
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Empresa>>> Get([FromServices] DataContext context)
@@ -26,9 +34,7 @@ namespace EmpreasAPI.Controllers
                 .Include(x=>x.Billing)
                 .ToListAsync();
             if (!empresas.Any())
-            {
                 return Ok(new { message = "Nenhuma empresa encontrada" });
-            }
             return empresas;
         }
 
@@ -44,11 +50,8 @@ namespace EmpreasAPI.Controllers
                 .Include(x => x.Qsa)
                 .Include(x => x.Billing)
                 .FirstOrDefaultAsync(x=>x.Cnpj == cnpj);
-            if(empresa == null)
-            {
-                return Ok(new { message = "Empresa nao encontrada" });
-            }
-            return empresa;
+
+            return VerificarEmpresa(empresa);
         }
 
         [HttpGet]
@@ -64,11 +67,7 @@ namespace EmpreasAPI.Controllers
                 .Include(x => x.Billing)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            if(empresa == null)
-            {
-                return Ok(new { message = "Empresa nao encontrada" });
-            }
-            return empresa;
+            return VerificarEmpresa(empresa);
         }
         
         [HttpPost]
@@ -125,9 +124,7 @@ namespace EmpreasAPI.Controllers
         {
             var empresa = await context.Empresas.FirstOrDefaultAsync(x => x.Id == id);
             if(empresa == null)
-            {
                 return Ok(new { message = "Empresa nao encontrada!" });
-            }
 
             try
             {
