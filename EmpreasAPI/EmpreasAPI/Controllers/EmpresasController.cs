@@ -73,12 +73,8 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             string cnpj)
         {
-            var empresa = await context.Empresas
-                .Include(x => x.AtividadePrincipal)
-                .Include(x => x.AtividadesSecundarias)
-                .Include(x => x.Qsa)
-                .Include(x => x.Billing)
-                .FirstOrDefaultAsync(x=>x.Cnpj == cnpj);
+            var empresas = await ListaEmpresas(context);
+            var empresa  = empresas.FirstOrDefault(x=> x.Cnpj == cnpj);
 
             return VerificarEmpresa(empresa);
         }
@@ -89,13 +85,9 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             int id)
         {
-            
-            var empresa = await context.Empresas
-                .Include(x => x.AtividadePrincipal)
-                .Include(x => x.AtividadesSecundarias)
-                .Include(x => x.Qsa)
-                .Include(x => x.Billing)
-                .FirstOrDefaultAsync(x => x.Id == id);
+
+            var empresas = await ListaEmpresas(context);
+            var empresa = empresas.FirstOrDefault(x => x.Id == id);
 
             return VerificarEmpresa(empresa);
         }
@@ -135,8 +127,11 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             int id)
         {
-            var empresa = await context.Empresas.FirstOrDefaultAsync(x => x.Id == id);
-            if(empresa == null)
+
+            var empresas = await ListaEmpresas(context);
+            var empresa = empresas.FirstOrDefault(x => x.Id == id);
+
+            if (empresa == null)
                 return Ok(new { message = "Empresa nao encontrada!" });
 
             try
