@@ -69,3 +69,16 @@ Primeiramente acrescente o banco de dados em seu servidor local, através do Sql
 - Criação de um metodo para verificar se a CNPJ ja foi cadastrado
 	> **Motivo:** Evitar duplicação de código
 	
+- Refatorar código de consulta por ID e CNPJ
+	> **Motivo:** Evitar duplicação de código e melhorar leitura do codigo
+	
+- Criação de um método para realizar a requisicao para a ReceitaWS
+	> **Motivo:** Melhorar estrutura do codigo e facilitar a leitura
+	
+- Criação de um método que retorne uma lista de empresas
+	> **Motivo:** Evitar duplicação de código
+	
+- Utilizar conceito VisualObjects para um melhor controle nas propriedades da Empresa
+	> **Motivo:** Melhorar estrutura do codigo
+
+	
