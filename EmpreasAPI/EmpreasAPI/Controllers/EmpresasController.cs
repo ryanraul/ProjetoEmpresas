@@ -43,6 +43,7 @@ namespace EmpreasAPI.Controllers
             if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
             {
                 var content = httpResponseMessage.Content;
+                var teste = content.ReadAsStringAsync();
                 var data = await content.ReadAsAsync<Empresa>();
                 if (data.Status != "OK")
                 {
@@ -98,14 +99,13 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             [FromBody] Empresa model)
         {
-            var verificarCnpj = await context.Empresas.FirstOrDefaultAsync(x => x.Cnpj == model.Cnpj);
-            if (verificarCnpj != null)
-                return Ok(new { message = "Cnpj ja Cadastrado" });
+            var verificarCNPJ = context.Empresas.FirstOrDefault(x=>x.Cnpj == model.Cnpj);
 
+            if(verificarCNPJ != null)
+                return Ok(new { message = "Cnpj ja Cadastrado" });
 
             if (ModelState.IsValid)
             {
-
                 var data = await RequisicaoWebService(model.Cnpj);
                 if (data.Result == null)
                 {
@@ -131,8 +131,8 @@ namespace EmpreasAPI.Controllers
             var empresas = await ListaEmpresas(context);
             var empresa = empresas.FirstOrDefault(x => x.Id == id);
 
-            if (empresa == null)
-                return Ok(new { message = "Empresa nao encontrada!" });
+            if(empresa == null)
+                return Ok(new { message = "Empresa nao encontrada" });
 
             try
             {

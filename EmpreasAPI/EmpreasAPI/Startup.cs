@@ -45,11 +45,11 @@ namespace EmpreasAPI
             //PARA EVITAR ERRO AO ACESSAR DE DOMINIOS DIFERENTES
             //PERMITE A REALIZACAO DE QUALQUER METODO (POST,GET e DELETE)
             app.UseCors(builder =>
-            {
-                builder.AllowAnyOrigin();
-                builder.AllowAnyMethod();
-                builder.AllowAnyHeader();
-            }
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                }
             );
 
             app.UseAuthorization();
