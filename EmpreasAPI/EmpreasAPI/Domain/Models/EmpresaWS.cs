@@ -74,7 +74,7 @@ namespace EmpreasAPI.Domain.Models
             if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
             {
                 var content = httpResponseMessage.Content;
-                //var teste = content.ReadAsStringAsync();
+                
                 var data = await content.ReadAsAsync<EmpresaWS>();
                 if (data.Status != "OK")
                 {
@@ -87,6 +87,7 @@ namespace EmpreasAPI.Domain.Models
                 return Ok(new { message = $"Aguarde um pouco ate o proximo registro (Erro: {httpResponseMessage.StatusCode})" });
             }
         }
+
     }
 
 }

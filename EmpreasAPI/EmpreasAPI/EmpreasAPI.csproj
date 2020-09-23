@@ -13,10 +13,5 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ReceitaWS\" />
-    <Folder Include="VisualObjects\" />
-  </ItemGroup>
-
 
 </Project>

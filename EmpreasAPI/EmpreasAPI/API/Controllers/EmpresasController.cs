@@ -17,7 +17,7 @@ namespace EmpreasAPI.Controllers
     [Route("v1/empresas")]
     public class EmpresasController : ControllerBase
     {
-
+        
         public ActionResult<Empresa> VerificarEmpresa(Empresa empresa)
         {
             if(empresa == null)
@@ -26,13 +26,13 @@ namespace EmpreasAPI.Controllers
         }
 
 
-
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Empresa>>> Get([FromServices] DataContext context)
         {
-            var empresas = await EmpresaQueries.ListaEmpresas(context);
-
+            var empresaHandler = new EmpresaHandler();
+            
+            var empresas = await empresaHandler.GetEmpresasGeral();
             if (!empresas.Any())
                 return Ok(new { message = "Nenhuma empresa encontrada" });
             return empresas;
@@ -44,8 +44,7 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             string cnpj)
         {
-            var empresas = await EmpresaQueries.ListaEmpresas(context);
-            var empresa  = empresas.FirstOrDefault(x=> x.Cnpj == cnpj);
+            var empresa = await EmpresaQueries.ListaEmpresasCnpj(cnpj);
 
             return VerificarEmpresa(empresa);
         }
@@ -57,8 +56,7 @@ namespace EmpreasAPI.Controllers
             int id)
         {
 
-            var empresas = await EmpresaQueries.ListaEmpresas(context);
-            var empresa = empresas.FirstOrDefault(x => x.Id == id);
+            var empresa = await EmpresaQueries.ListaEmpresasId(id);
 
             return VerificarEmpresa(empresa);
         }
@@ -70,22 +68,23 @@ namespace EmpreasAPI.Controllers
             [FromBody] Empresa model)
         {
             EmpresaHandler empresaHandler = new EmpresaHandler();
-            //var verificarCNPJ = context.Empresas.FirstOrDefault(x=>x.Cnpj == model.Cnpj);
+            var verificarCNPJ = await empresaHandler.GetEmpresaCnpj(model.Cnpj);
 
-            //if(verificarCNPJ != null)
-                //return Ok(new { message = "Cnpj ja Cadastrado" });
+            if(verificarCNPJ != null)
+                return Ok(new { message = "Cnpj ja Cadastrado" });
 
             if (ModelState.IsValid)
             {
                 var dataWs = await empresaHandler.GetEmpresaWS(model.Cnpj);
-                var data = empresaHandler.Mapping(dataWs.Value);
-                if (data != null)
+                
+                if (dataWs != null)
                 {
-                    //data.Value.Cnpj = model.Cnpj;
-                    //context.Empresas.Add(data.Value);
-                    //await context.SaveChangesAsync();
+                    var data = empresaHandler.Mapping(dataWs.Value);
+                    data.Cnpj = model.Cnpj;
+                    await empresaHandler.AddEmpresa(context, data);
+                    return data;
                 }
-                return data;
+                return Ok(new { message = "Houve algum problema..." });
             }
             else
             {
@@ -99,17 +98,15 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             int id)
         {
-
-            var empresas = await EmpresaQueries.ListaEmpresas(context);
-            var empresa = empresas.FirstOrDefault(x => x.Id == id);
+            var empresaHandler = new EmpresaHandler();
+            var empresa = await empresaHandler.GetEmpresaId(id);
 
             if(empresa == null)
                 return Ok(new { message = "Empresa nao encontrada" });
 
             try
             {
-                context.Empresas.Remove(empresa);
-                await context.SaveChangesAsync();
+                await empresaHandler.RemoveEmpresa(context, empresa);
                 return empresa;
             }
             catch (Exception)
