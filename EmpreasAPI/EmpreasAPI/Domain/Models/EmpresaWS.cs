@@ -1,16 +1,16 @@
-﻿using EmpreasAPI.VisualObjects;
+﻿using EmpreasAPI.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text.Json.Serialization;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace EmpreasAPI.Models
+namespace EmpreasAPI.Domain.Models
 {
-    public class Empresa
+    public class EmpresaWS : ControllerBase
     {
         [Key]
         public int Id { get; set; }
@@ -63,7 +63,30 @@ namespace EmpreasAPI.Models
 
         [JsonProperty("capital_social")]
         public string CapitalSocial { get; set; }
-      
+
+
+        public async Task<ActionResult<EmpresaWS>> RequisicaoWebService(string cnpj)
+        {
+            var httpClient = HttpClientFactory.Create();
+            var url = $"https://www.receitaws.com.br/v1/cnpj/{cnpj}";
+            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(url);
+
+            if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+            {
+                var content = httpResponseMessage.Content;
+                //var teste = content.ReadAsStringAsync();
+                var data = await content.ReadAsAsync<EmpresaWS>();
+                if (data.Status != "OK")
+                {
+                    return Ok(new { message = $"{data.Message}" });
+                }
+                return data;
+            }
+            else
+            {
+                return Ok(new { message = $"Aguarde um pouco ate o proximo registro (Erro: {httpResponseMessage.StatusCode})" });
+            }
+        }
     }
 
 }

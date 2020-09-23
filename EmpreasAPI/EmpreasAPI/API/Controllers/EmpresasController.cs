@@ -1,5 +1,7 @@
 ﻿using EmpreasAPI.Data;
-using EmpreasAPI.Models;
+using EmpreasAPI.Data.Queries;
+using EmpreasAPI.Domain.Entities;
+using EmpreasAPI.Domain.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,45 +25,13 @@ namespace EmpreasAPI.Controllers
             return empresa;
         }
 
-        public async Task<List<Empresa>> ListaEmpresas(DataContext context)
-        {
-            var empresas = await context.Empresas
-                .Include(x => x.AtividadePrincipal)
-                .Include(x => x.AtividadesSecundarias)
-                .Include(x => x.Qsa)
-                .Include(x => x.Billing)
-                .ToListAsync();
-            return empresas;
-        }
 
-        public async Task<ActionResult<Empresa>> RequisicaoWebService(string cnpj)
-        {
-            var httpClient = HttpClientFactory.Create();
-            var url = $"https://www.receitaws.com.br/v1/cnpj/{cnpj}";
-            HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(url);
-
-            if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
-            {
-                var content = httpResponseMessage.Content;
-                var teste = content.ReadAsStringAsync();
-                var data = await content.ReadAsAsync<Empresa>();
-                if (data.Status != "OK")
-                {
-                    return Ok(new { message = $"{data.Message}" });
-                }
-                return data;
-            }
-            else
-            {
-                return Ok(new { message = $"Aguarde um pouco ate o proximo registro (Erro: {httpResponseMessage.StatusCode})" });
-            }
-        }
 
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Empresa>>> Get([FromServices] DataContext context)
         {
-            var empresas = await ListaEmpresas(context);
+            var empresas = await EmpresaQueries.ListaEmpresas(context);
 
             if (!empresas.Any())
                 return Ok(new { message = "Nenhuma empresa encontrada" });
@@ -74,7 +44,7 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             string cnpj)
         {
-            var empresas = await ListaEmpresas(context);
+            var empresas = await EmpresaQueries.ListaEmpresas(context);
             var empresa  = empresas.FirstOrDefault(x=> x.Cnpj == cnpj);
 
             return VerificarEmpresa(empresa);
@@ -87,7 +57,7 @@ namespace EmpreasAPI.Controllers
             int id)
         {
 
-            var empresas = await ListaEmpresas(context);
+            var empresas = await EmpresaQueries.ListaEmpresas(context);
             var empresa = empresas.FirstOrDefault(x => x.Id == id);
 
             return VerificarEmpresa(empresa);
@@ -99,19 +69,21 @@ namespace EmpreasAPI.Controllers
             [FromServices] DataContext context,
             [FromBody] Empresa model)
         {
-            var verificarCNPJ = context.Empresas.FirstOrDefault(x=>x.Cnpj == model.Cnpj);
+            EmpresaHandler empresaHandler = new EmpresaHandler();
+            //var verificarCNPJ = context.Empresas.FirstOrDefault(x=>x.Cnpj == model.Cnpj);
 
-            if(verificarCNPJ != null)
-                return Ok(new { message = "Cnpj ja Cadastrado" });
+            //if(verificarCNPJ != null)
+                //return Ok(new { message = "Cnpj ja Cadastrado" });
 
             if (ModelState.IsValid)
             {
-                var data = await RequisicaoWebService(model.Cnpj);
-                if (data.Result == null)
+                var dataWs = await empresaHandler.GetEmpresaWS(model.Cnpj);
+                var data = empresaHandler.Mapping(dataWs.Value);
+                if (data != null)
                 {
-                    data.Value.Cnpj = model.Cnpj;
-                    context.Empresas.Add(data.Value);
-                    await context.SaveChangesAsync();
+                    //data.Value.Cnpj = model.Cnpj;
+                    //context.Empresas.Add(data.Value);
+                    //await context.SaveChangesAsync();
                 }
                 return data;
             }
@@ -128,7 +100,7 @@ namespace EmpreasAPI.Controllers
             int id)
         {
 
-            var empresas = await ListaEmpresas(context);
+            var empresas = await EmpresaQueries.ListaEmpresas(context);
             var empresa = empresas.FirstOrDefault(x => x.Id == id);
 
             if(empresa == null)

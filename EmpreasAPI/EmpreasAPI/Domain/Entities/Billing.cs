@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EmpreasAPI.VisualObjects
+namespace EmpreasAPI.Domain.Entities
 {
     public class Billing
     {

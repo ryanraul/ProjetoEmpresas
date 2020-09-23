@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S3GKWA77T1l2k207E3KztMH3UlVfzVXcI8BcIUODiZsfFtpwAl6oUaajF4PVh+0H8v5697NUdDaYoOhLrzUSkw==",
+  "dgSpecHash": "gdFgIgmxW7zH2aE0DJCAKKtQhhUZpFRyyyrwX+JCTBg5VigWlLSa9zxe7tX7il07m/TC2mb1vS5Yrh8173Mcng==",
   "success": true,
-  "projectFilePath": "C:\\Users\\raul.silva\\Documents\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
+  "projectFilePath": "C:\\Users\\raul.silva\\Downloads\\Teste\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\raul.silva\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",
     "C:\\Users\\raul.silva\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

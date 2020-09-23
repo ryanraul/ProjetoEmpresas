@@ -7204,11 +7204,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\raul.silva\\Documents\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
+      "projectUniqueName": "C:\\Users\\raul.silva\\Downloads\\Teste\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
       "projectName": "EmpreasAPI",
-      "projectPath": "C:\\Users\\raul.silva\\Documents\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
+      "projectPath": "C:\\Users\\raul.silva\\Downloads\\Teste\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\EmpreasAPI.csproj",
       "packagesPath": "C:\\Users\\raul.silva\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\raul.silva\\Documents\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\obj\\",
+      "outputPath": "C:\\Users\\raul.silva\\Downloads\\Teste\\ProjetoEmpresas\\EmpreasAPI\\EmpreasAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
