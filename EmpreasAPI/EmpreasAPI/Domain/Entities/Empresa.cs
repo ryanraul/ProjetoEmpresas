@@ -12,38 +12,40 @@ namespace EmpreasAPI.Domain.Entities
     public class Empresa
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
+        
         [Required(ErrorMessage = "Este campo é obrigatorio")]
-        public string Cnpj { get; set; }
-        public string Complemento { get; set; }
-        public string Tipo { get; set; }
-        public string Nome { get; set; }
-        public string Telefone { get; set; }
-        public string Email { get; set; }
-        public List<Qsa> Qsa { get; set; }
-        public string Situacao { get; set; }
-        public string Bairro { get; set; }
-        public string Logradouro { get; set; }
-        public string Numero { get; set; }
-        public string Cep { get; set; }
-        public string Municipio { get; set; }
-        public string Fantasia { get; set; }
-        public string Porte { get; set; }
-        public string Abertura { get; set; }
-        public string Uf { get; set; }
-        public string Status { get; set; }
-        public string Message { get; set; }
-        public string Efr { get; set; }
-        public Billing Billing { get; set; }
-        public List<AtividadePrincipal> AtividadePrincipal { get; set; }
-        public List<AtividadesSecundaria> AtividadesSecundarias { get; set; }
-        public string DataSituacao { get; set; }
-        public DateTime UltimaAtualizacao { get; set; }
-        public string MotivoSituacao { get; set; }
-        public string NaturezaJuridica { get; set; }
-        public string SituacaoEspecial { get; set; }
-        public string DataSituacaoEspecial { get; set; }
-        public string CapitalSocial { get; set; }
+        [JsonProperty("cnpj")]
+        public string Cnpj { get; private set; }
+        public string Complemento { get; private set; }
+        public string Tipo { get; private set; }
+        public string Nome { get; private set; }
+        public string Telefone { get; private set; }
+        public string Email { get; private set; }
+        public List<Qsa> Qsa { get; private set; }
+        public string Situacao { get; private set; }
+        public string Bairro { get; private set; }
+        public string Logradouro { get; private set; }
+        public string Numero { get; private set; }
+        public string Cep { get; private set; }
+        public string Municipio { get; private set; }
+        public string Fantasia { get; private set; }
+        public string Porte { get; private set; }
+        public string Abertura { get; private set; }
+        public string Uf { get; private set; }
+        public string Status { get; private set; }
+        public string Message { get; private set; }
+        public string Efr { get; private set; }
+        public Billing Billing { get; private set; }
+        public List<AtividadePrincipal> AtividadePrincipal { get; private set; }
+        public List<AtividadesSecundaria> AtividadesSecundarias { get; private set; }
+        public string DataSituacao { get; private set; }
+        public DateTime UltimaAtualizacao { get; private set; }
+        public string MotivoSituacao { get; private set; }
+        public string NaturezaJuridica { get; private set; }
+        public string SituacaoEspecial { get; private set; }
+        public string DataSituacaoEspecial { get; private set; }
+        public string CapitalSocial { get; private set; }
             
         public Empresa() { }
         public Empresa(

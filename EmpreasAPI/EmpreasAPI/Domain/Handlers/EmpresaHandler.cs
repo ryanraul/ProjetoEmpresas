@@ -17,18 +17,23 @@ namespace EmpreasAPI.Domain.Handlers
             try
             {
                 return MappingEmpresa.MappingEmpresaWStoEmpresa(empresaWS);
-            }catch(Exception ex)
+            }catch(Exception)
             {
                 return null;
             }
         }
-        
+
+        public bool Validate(string cnpj)
+        {
+            return cnpj.Length == 14 ? true : false;
+        }
+
         public async Task<ActionResult<EmpresaWS>> GetEmpresaWS(string cnpj)
         {
             EmpresaWS empresaWS = new EmpresaWS();
-            
+
             return await empresaWS.RequisicaoWebService(cnpj);
-            
+
         }
 
         public async Task<List<Empresa>> GetEmpresasGeral()

@@ -64,7 +64,6 @@ namespace EmpreasAPI.Domain.Models
         [JsonProperty("capital_social")]
         public string CapitalSocial { get; set; }
 
-
         public async Task<ActionResult<EmpresaWS>> RequisicaoWebService(string cnpj)
         {
             var httpClient = HttpClientFactory.Create();
@@ -76,6 +75,7 @@ namespace EmpreasAPI.Domain.Models
                 var content = httpResponseMessage.Content;
                 
                 var data = await content.ReadAsAsync<EmpresaWS>();
+                data.Cnpj = cnpj;
                 if (data.Status != "OK")
                 {
                     return Ok(new { message = $"{data.Message}" });

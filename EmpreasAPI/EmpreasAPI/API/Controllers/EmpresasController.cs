@@ -1,12 +1,10 @@
 ﻿using EmpreasAPI.Domain.Entities;
 using EmpreasAPI.Domain.Handlers;
+using EmpreasAPI.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace EmpreasAPI.Controllers
@@ -46,8 +44,7 @@ namespace EmpreasAPI.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult<Empresa>> GetById(
-            int id)
+        public async Task<ActionResult<Empresa>> GetById(int id)
         {
             var empresa = await new EmpresaHandler().GetEmpresaId(id);
             return VerificarEmpresa(empresa);
@@ -55,31 +52,31 @@ namespace EmpreasAPI.Controllers
         
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<Empresa>> Post(
-            [FromBody] Empresa model)
+        public async Task<ActionResult<Empresa>> Post([FromBody] EmpresaWS model)
         {
             EmpresaHandler empresaHandler = new EmpresaHandler();
-            var verificarCNPJ = await empresaHandler.GetEmpresaCnpj(model.Cnpj);
+            if (empresaHandler.Validate(model.Cnpj))
+            {
+                
+                var verificarCNPJ = await empresaHandler.GetEmpresaCnpj(model.Cnpj);
 
-            if(verificarCNPJ != null)
+                if(verificarCNPJ != null)
                 return Ok(new { message = "Cnpj ja Cadastrado" });
 
-            if (ModelState.IsValid)
-            {
+            
                 var dataWs = await empresaHandler.GetEmpresaWS(model.Cnpj);
                 
-                if (dataWs != null)
+                if (dataWs.Value != null)
                 {
                     var data = empresaHandler.Mapping(dataWs.Value);
-                    data.Cnpj = model.Cnpj;
                     await empresaHandler.AddEmpresa(data);
                     return data;
                 }
-                return Ok(new { message = "Houve algum problema..." });
+                return dataWs.Result;
             }
             else
             {
-                return BadRequest(ModelState);
+                return Ok(new { message = "Cnpj Invalido" }); ;
             }
         }
 
