@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+
 
 namespace EmpreasAPI.Domain.Entities
 {
@@ -13,9 +10,7 @@ namespace EmpreasAPI.Domain.Entities
     {
         [Key]
         public int Id { get; private set; }
-        
         [Required(ErrorMessage = "Este campo é obrigatorio")]
-        [JsonProperty("cnpj")]
         public string Cnpj { get; private set; }
         public string Complemento { get; private set; }
         public string Tipo { get; private set; }
@@ -111,11 +106,6 @@ namespace EmpreasAPI.Domain.Entities
             SituacaoEspecial = situacaoEspecial;
             DataSituacaoEspecial = dataSituacaoEspecial;
             CapitalSocial = capitalSocial;
-        }
-
-        public string MostrarNome()
-        {
-            return Nome;
         }
     }
 

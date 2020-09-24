@@ -2,10 +2,10 @@
 using EmpreasAPI.Domain.Entities;
 using EmpreasAPI.Domain.Mapping;
 using EmpreasAPI.Domain.Models;
+using EmpreasAPI.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmpreasAPI.Domain.Handlers
@@ -30,10 +30,8 @@ namespace EmpreasAPI.Domain.Handlers
 
         public async Task<ActionResult<EmpresaWS>> GetEmpresaWS(string cnpj)
         {
-            EmpresaWS empresaWS = new EmpresaWS();
-
-            return await empresaWS.RequisicaoWebService(cnpj);
-
+            Requisicao requisicao = new Requisicao();
+            return await requisicao.RequisicaoWebService(cnpj);
         }
 
         public async Task<List<Empresa>> GetEmpresasGeral()
