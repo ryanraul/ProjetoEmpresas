@@ -1,5 +1,4 @@
-﻿using EmpreasAPI.Data;
-using EmpreasAPI.Data.Queries;
+﻿using EmpreasAPI.Data.Queries;
 using EmpreasAPI.Domain.Entities;
 using EmpreasAPI.Domain.Mapping;
 using EmpreasAPI.Domain.Models;
@@ -47,12 +46,12 @@ namespace EmpreasAPI.Domain.Handlers
             return await EmpresaQueries.ListaEmpresasId(id);
         }
 
-        public async Task AddEmpresa(DataContext context, Empresa empresa)
+        public async Task AddEmpresa(Empresa empresa)
         {
             await EmpresaQueries.SaveAddEmpresa(empresa);
         }
 
-        public async Task RemoveEmpresa(DataContext context, Empresa empresa)
+        public async Task RemoveEmpresa(Empresa empresa)
         {
             await EmpresaQueries.SaveRemoveEmpresa(empresa);
         }

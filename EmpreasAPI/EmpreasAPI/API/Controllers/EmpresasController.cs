@@ -1,6 +1,4 @@
-﻿using EmpreasAPI.Data;
-using EmpreasAPI.Data.Queries;
-using EmpreasAPI.Domain.Entities;
+﻿using EmpreasAPI.Domain.Entities;
 using EmpreasAPI.Domain.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +26,7 @@ namespace EmpreasAPI.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Empresa>>> Get([FromServices] DataContext context)
+        public async Task<ActionResult<List<Empresa>>> Get()
         {
             var empresaHandler = new EmpresaHandler();
             
@@ -40,31 +38,24 @@ namespace EmpreasAPI.Controllers
 
         [HttpGet]
         [Route("CNPJ/{cnpj}")]
-        public async Task<ActionResult<Empresa>> GetByCnpj(
-            [FromServices] DataContext context,
-            string cnpj)
+        public async Task<ActionResult<Empresa>> GetByCnpj(string cnpj)
         {
-            var empresa = await EmpresaQueries.ListaEmpresasCnpj(cnpj);
-
+            var empresa = await new EmpresaHandler().GetEmpresaCnpj(cnpj);
             return VerificarEmpresa(empresa);
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public async Task<ActionResult<Empresa>> GetById(
-            [FromServices] DataContext context,
             int id)
         {
-
-            var empresa = await EmpresaQueries.ListaEmpresasId(id);
-
+            var empresa = await new EmpresaHandler().GetEmpresaId(id);
             return VerificarEmpresa(empresa);
         }
         
         [HttpPost]
         [Route("")]
         public async Task<ActionResult<Empresa>> Post(
-            [FromServices] DataContext context,
             [FromBody] Empresa model)
         {
             EmpresaHandler empresaHandler = new EmpresaHandler();
@@ -81,7 +72,7 @@ namespace EmpreasAPI.Controllers
                 {
                     var data = empresaHandler.Mapping(dataWs.Value);
                     data.Cnpj = model.Cnpj;
-                    await empresaHandler.AddEmpresa(context, data);
+                    await empresaHandler.AddEmpresa(data);
                     return data;
                 }
                 return Ok(new { message = "Houve algum problema..." });
@@ -94,9 +85,7 @@ namespace EmpreasAPI.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
-        public async Task<ActionResult<Empresa>> DeleteById(
-            [FromServices] DataContext context,
-            int id)
+        public async Task<ActionResult<Empresa>> DeleteById(int id)
         {
             var empresaHandler = new EmpresaHandler();
             var empresa = await empresaHandler.GetEmpresaId(id);
@@ -106,7 +95,7 @@ namespace EmpreasAPI.Controllers
 
             try
             {
-                await empresaHandler.RemoveEmpresa(context, empresa);
+                await empresaHandler.RemoveEmpresa(empresa);
                 return empresa;
             }
             catch (Exception)
