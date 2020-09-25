@@ -28,7 +28,7 @@ namespace EmpreasAPI.Controllers
         {
             var empresaHandler = new EmpresaHandler();
             
-            var empresas = await empresaHandler.GetEmpresasGeral();
+            var empresas = await empresaHandler.GetEmpresas();
             if (!empresas.Any())
                 return Ok(new { message = "Nenhuma empresa encontrada" });
             return empresas;
@@ -38,8 +38,13 @@ namespace EmpreasAPI.Controllers
         [Route("CNPJ/{cnpj}")]
         public async Task<ActionResult<Empresa>> GetByCnpj(string cnpj)
         {
-            var empresa = await new EmpresaHandler().GetEmpresaCnpj(cnpj);
-            return VerificarEmpresa(empresa);
+            var empresaHandler = new EmpresaHandler();
+            if (empresaHandler.ValidateCNPJ(cnpj))
+            {
+                var empresa = await new EmpresaHandler().GetEmpresaCnpj(cnpj);
+                return VerificarEmpresa(empresa);
+            }
+            return Ok(new { message = "Cnpj Invalido" }); ;
         }
 
         [HttpGet]
@@ -55,7 +60,7 @@ namespace EmpreasAPI.Controllers
         public async Task<ActionResult<Empresa>> Post([FromBody] EmpresaWS model)
         {
             EmpresaHandler empresaHandler = new EmpresaHandler();
-            if (empresaHandler.Validate(model.Cnpj))
+            if (empresaHandler.ValidateCNPJ(model.Cnpj))
             {
                 
                 var verificarCNPJ = await empresaHandler.GetEmpresaCnpj(model.Cnpj);
@@ -74,10 +79,7 @@ namespace EmpreasAPI.Controllers
                 }
                 return dataWs.Result;
             }
-            else
-            {
-                return Ok(new { message = "Cnpj Invalido" }); ;
-            }
+            return Ok(new { message = "Cnpj Invalido" });
         }
 
         [HttpDelete]

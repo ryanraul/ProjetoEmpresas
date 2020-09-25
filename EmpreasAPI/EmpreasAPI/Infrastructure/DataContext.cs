@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 
-namespace EmpreasAPI.Data
+namespace EmpreasAPI.Infrastructure
 {
     public class DataContext : DbContext
     {

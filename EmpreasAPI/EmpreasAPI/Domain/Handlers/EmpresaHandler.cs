@@ -1,4 +1,4 @@
-﻿using EmpreasAPI.Data.Queries;
+﻿using EmpreasAPI.Infrastructure.Queries;
 using EmpreasAPI.Domain.Entities;
 using EmpreasAPI.Domain.Mapping;
 using EmpreasAPI.Domain.Models;
@@ -12,6 +12,17 @@ namespace EmpreasAPI.Domain.Handlers
 {
     public class EmpresaHandler
     {
+        public bool ValidateCNPJ(string cnpj)
+        {
+            return cnpj.Length == 14 ? true : false;
+        }
+
+        public async Task<ActionResult<EmpresaWS>> GetEmpresaWS(string cnpj)
+        {
+            RequestWS request = new RequestWS();
+            return await request.RequestWebService(cnpj);
+        }
+
         public Empresa Mapping(EmpresaWS empresaWS)
         {
             try
@@ -23,40 +34,29 @@ namespace EmpreasAPI.Domain.Handlers
             }
         }
 
-        public bool Validate(string cnpj)
+        public async Task<List<Empresa>> GetEmpresas()
         {
-            return cnpj.Length == 14 ? true : false;
-        }
-
-        public async Task<ActionResult<EmpresaWS>> GetEmpresaWS(string cnpj)
-        {
-            Requisicao requisicao = new Requisicao();
-            return await requisicao.RequisicaoWebService(cnpj);
-        }
-
-        public async Task<List<Empresa>> GetEmpresasGeral()
-        {
-            return await EmpresaQueries.ListaEmpresas();
+            return await EmpresaQueries.ListEmpresas();
         }
 
         public async Task<Empresa> GetEmpresaCnpj(string cnpj)
         {
-            return await EmpresaQueries.ListaEmpresasCnpj(cnpj);
+            return await EmpresaQueries.ListEmpresaCnpj(cnpj);
         }
 
         public async Task<Empresa> GetEmpresaId(int id)
         {
-            return await EmpresaQueries.ListaEmpresasId(id);
+            return await EmpresaQueries.ListEmpresaId(id);
         }
 
         public async Task AddEmpresa(Empresa empresa)
         {
-            await EmpresaQueries.SaveAddEmpresa(empresa);
+            await EmpresaQueries.SaveAddedEmpresa(empresa);
         }
 
         public async Task RemoveEmpresa(Empresa empresa)
         {
-            await EmpresaQueries.SaveRemoveEmpresa(empresa);
+            await EmpresaQueries.SaveRemovedEmpresa(empresa);
         }
 
 

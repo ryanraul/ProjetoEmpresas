@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace EmpreasAPI.Domain.Services
 {
-    public class Requisicao : ControllerBase
+    public class RequestWS : ControllerBase
     {
 
-        public async Task<ActionResult<EmpresaWS>> RequisicaoWebService(string cnpj)
+        public async Task<ActionResult<EmpresaWS>> RequestWebService(string cnpj)
         {
             var httpClient = HttpClientFactory.Create();
             var url = $"https://www.receitaws.com.br/v1/cnpj/{cnpj}";
