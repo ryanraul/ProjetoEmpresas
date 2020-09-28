@@ -78,9 +78,6 @@ Primeiramente acrescente o banco de dados em seu servidor local, através do Sql
 - Criação de um método que retorne uma lista de empresas
 	> **Motivo:** Evitar duplicação de código
 	
-- Utilizar conceito VisualObjects para um melhor controle nas propriedades da Empresa
-	> **Motivo:** Melhorar estrutura do codigo
-
 - Alterando arquitetura do projeto
 	> **Motivo:** Facilitar futuras manutenções e evitar acoplamentos
 	
@@ -96,7 +93,7 @@ Primeiramente acrescente o banco de dados em seu servidor local, através do Sql
 	> - Realizar mapeamento da classe que recebe as informações da requisição da WebService para a entidade que irá ser armazenada no banco
 
 
-- Camada Application:
+- Camada Domain:
 	- Entities
 	> - Entidades que serão refletidas no banco de dados
 	- Models
