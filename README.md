@@ -81,4 +81,35 @@ Primeiramente acrescente o banco de dados em seu servidor local, através do Sql
 - Utilizar conceito VisualObjects para um melhor controle nas propriedades da Empresa
 	> **Motivo:** Melhorar estrutura do codigo
 
+- Alterando arquitetura do projeto
+	> **Motivo:** Facilitar futuras manutenções e evitar acoplamentos
 	
+- Separar responsabilidades nas camadas:
+	- Application
+	- Domain
+	- Infrastructure
+	
+- Camada Application:
+	- APIController
+	> - Requisições  (Post, Get e Delete)
+	- Mapping
+	> - Realizar mapeamento da classe que recebe as informações da requisição da WebService para a entidade que irá ser armazenada no banco
+
+
+- Camada Application:
+	- Entities
+	> - Entidades que serão refletidas no banco de dados
+	- Models
+	> - Classe que ira guardar as informações requisitadas no WebService externo para que depois seja mapeada para a entidade
+	- Handlers
+	> - Ira manipular algumas funcionalidades do dominio
+	- Repository
+	> - Chamada das operações realizadas no banco de dados (Repositorio)
+
+- Camada Infrastructure: 
+	- Queries
+	> - Consultas realizadas no banco de dados indicado no DataContext
+	- Services
+	> - Utilização de serviço externo, nesse caso a Requisição ao WebService
+	- DataContext
+	> - Informções sobre o banco de dados a ser utilizado
