@@ -1,12 +1,8 @@
 ﻿using EmpreasAPI.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace EmpreasAPI.Domain.Models
 {
@@ -68,11 +64,6 @@ namespace EmpreasAPI.Domain.Models
 
         [JsonProperty("capital_social")]
         public string CapitalSocial { get; set; }
-
-        public bool ValidateCNPJ(string cnpj)
-        {
-            return cnpj.Length == 14 ? true : false;
-        }
     }
 
 }

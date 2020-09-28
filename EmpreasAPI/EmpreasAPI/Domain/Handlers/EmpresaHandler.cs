@@ -1,10 +1,6 @@
-﻿using EmpreasAPI.Infrastructure.Queries;
-using EmpreasAPI.Domain.Entities;
-using EmpreasAPI.Domain.Models;
+﻿using EmpreasAPI.Domain.Models;
 using EmpreasAPI.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EmpreasAPI.Domain.Handlers
@@ -15,7 +11,7 @@ namespace EmpreasAPI.Domain.Handlers
         public async Task<ActionResult<EmpresaWS>> GetEmpresaWS(string cnpj)
         {
             RequestWS request = new RequestWS();
-            return await request.RequestWebService(cnpj);  
+            return await request.RequestWebService(cnpj);
         }
 
     }

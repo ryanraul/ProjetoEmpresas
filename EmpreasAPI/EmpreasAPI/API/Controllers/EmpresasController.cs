@@ -28,9 +28,9 @@ namespace EmpreasAPI.Controllers
         [Route("")]
         public async Task<ActionResult<List<Empresa>>> Get()
         {
-            var empresaRopository = new EmpresaRepository();
+            var empresaRepository = new EmpresaRepository();
             
-            var empresas = await empresaRopository.GetEmpresas();
+            var empresas = await empresaRepository.GetEmpresas();
             if (!empresas.Any())
                 return Ok(new { message = "Nenhuma empresa encontrada" });
             return empresas;
@@ -40,10 +40,10 @@ namespace EmpreasAPI.Controllers
         [Route("CNPJ/{cnpj}")]
         public async Task<ActionResult<Empresa>> GetByCnpj(string cnpj)
         {
-            var empresaRopository = new EmpresaRepository();
-            if (new EmpresaWS().ValidateCNPJ(cnpj))
+            var empresaRepository = new EmpresaRepository();
+            if (new Empresa().ValidateCNPJ(cnpj))
             {
-                var empresa = await new EmpresaRepository().GetEmpresaCnpj(cnpj);
+                var empresa = await empresaRepository.GetEmpresaCnpj(cnpj);
                 return VerificarEmpresa(empresa);
             }
             return Ok(new { message = "Cnpj Invalido" }); ;
@@ -61,11 +61,11 @@ namespace EmpreasAPI.Controllers
         [Route("")]
         public async Task<ActionResult<Empresa>> Post([FromBody] EmpresaWS model)
         {
-            var empresaRopository = new EmpresaRepository();
-            if (model.ValidateCNPJ(model.Cnpj))
+            var empresaRepository = new EmpresaRepository();
+            if (new Empresa().ValidateCNPJ(model.Cnpj))
             {
                 
-                var verificarCNPJ = await empresaRopository.GetEmpresaCnpj(model.Cnpj);
+                var verificarCNPJ = await empresaRepository.GetEmpresaCnpj(model.Cnpj);
 
                 if(verificarCNPJ != null)
                     return Ok(new { message = "Cnpj ja Cadastrado" });
@@ -76,7 +76,7 @@ namespace EmpreasAPI.Controllers
                 if (dataWs.Value != null)
                 {
                     var data = MappingEmpresa.MappingEmpresaWStoEmpresa(dataWs.Value);
-                    await empresaRopository.AddEmpresa(data);
+                    await empresaRepository.AddEmpresa(data);
                     return data;
                 }
                 return dataWs.Result;
@@ -88,15 +88,15 @@ namespace EmpreasAPI.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult<Empresa>> DeleteById(int id)
         {
-            var empresaRopository = new EmpresaRepository();
-            var empresa = await empresaRopository.GetEmpresaId(id);
+            var empresaRepository = new EmpresaRepository();
+            var empresa = await empresaRepository.GetEmpresaId(id);
 
             if(empresa == null)
                 return Ok(new { message = "Empresa nao encontrada" });
 
             try
             {
-                await empresaRopository.RemoveEmpresa(empresa);
+                await empresaRepository.RemoveEmpresa(empresa);
                 return empresa;
             }
             catch (Exception)

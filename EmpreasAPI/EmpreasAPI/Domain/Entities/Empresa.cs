@@ -42,7 +42,11 @@ namespace EmpreasAPI.Domain.Entities
         public string DataSituacaoEspecial { get; private set; }
         public string CapitalSocial { get; private set; }
             
-        public Empresa() { }
+        public Empresa()     
+        { 
+            
+        }
+
         public Empresa(
             string cnpj, 
             string complemento, 
@@ -106,6 +110,11 @@ namespace EmpreasAPI.Domain.Entities
             SituacaoEspecial = situacaoEspecial;
             DataSituacaoEspecial = dataSituacaoEspecial;
             CapitalSocial = capitalSocial;
+        }
+
+        public bool ValidateCNPJ(string cnpj)
+        {
+            return cnpj.Length == 14;
         }
     }
 
