@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace EmpreasAPI.Domain.Services
+namespace EmpreasAPI.Infrastructure.Services
 {
     public class RequestWS : ControllerBase
     {

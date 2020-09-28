@@ -1,6 +1,8 @@
-﻿using EmpreasAPI.Domain.Entities;
+﻿using EmpreasAPI.API.Mapping;
+using EmpreasAPI.Domain.Entities;
 using EmpreasAPI.Domain.Handlers;
 using EmpreasAPI.Domain.Models;
+using EmpreasAPI.Domain.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -26,9 +28,9 @@ namespace EmpreasAPI.Controllers
         [Route("")]
         public async Task<ActionResult<List<Empresa>>> Get()
         {
-            var empresaHandler = new EmpresaHandler();
+            var empresaRopository = new EmpresaRepository();
             
-            var empresas = await empresaHandler.GetEmpresas();
+            var empresas = await empresaRopository.GetEmpresas();
             if (!empresas.Any())
                 return Ok(new { message = "Nenhuma empresa encontrada" });
             return empresas;
@@ -38,10 +40,10 @@ namespace EmpreasAPI.Controllers
         [Route("CNPJ/{cnpj}")]
         public async Task<ActionResult<Empresa>> GetByCnpj(string cnpj)
         {
-            var empresaHandler = new EmpresaHandler();
-            if (empresaHandler.ValidateCNPJ(cnpj))
+            var empresaRopository = new EmpresaRepository();
+            if (new EmpresaWS().ValidateCNPJ(cnpj))
             {
-                var empresa = await new EmpresaHandler().GetEmpresaCnpj(cnpj);
+                var empresa = await new EmpresaRepository().GetEmpresaCnpj(cnpj);
                 return VerificarEmpresa(empresa);
             }
             return Ok(new { message = "Cnpj Invalido" }); ;
@@ -51,7 +53,7 @@ namespace EmpreasAPI.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult<Empresa>> GetById(int id)
         {
-            var empresa = await new EmpresaHandler().GetEmpresaId(id);
+            var empresa = await new EmpresaRepository().GetEmpresaId(id);
             return VerificarEmpresa(empresa);
         }
         
@@ -59,22 +61,22 @@ namespace EmpreasAPI.Controllers
         [Route("")]
         public async Task<ActionResult<Empresa>> Post([FromBody] EmpresaWS model)
         {
-            EmpresaHandler empresaHandler = new EmpresaHandler();
-            if (empresaHandler.ValidateCNPJ(model.Cnpj))
+            var empresaRopository = new EmpresaRepository();
+            if (model.ValidateCNPJ(model.Cnpj))
             {
                 
-                var verificarCNPJ = await empresaHandler.GetEmpresaCnpj(model.Cnpj);
+                var verificarCNPJ = await empresaRopository.GetEmpresaCnpj(model.Cnpj);
 
                 if(verificarCNPJ != null)
-                return Ok(new { message = "Cnpj ja Cadastrado" });
+                    return Ok(new { message = "Cnpj ja Cadastrado" });
 
             
-                var dataWs = await empresaHandler.GetEmpresaWS(model.Cnpj);
+                var dataWs = await new EmpresaHandler().GetEmpresaWS(model.Cnpj);
                 
                 if (dataWs.Value != null)
                 {
-                    var data = empresaHandler.Mapping(dataWs.Value);
-                    await empresaHandler.AddEmpresa(data);
+                    var data = MappingEmpresa.MappingEmpresaWStoEmpresa(dataWs.Value);
+                    await empresaRopository.AddEmpresa(data);
                     return data;
                 }
                 return dataWs.Result;
@@ -86,15 +88,15 @@ namespace EmpreasAPI.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult<Empresa>> DeleteById(int id)
         {
-            var empresaHandler = new EmpresaHandler();
-            var empresa = await empresaHandler.GetEmpresaId(id);
+            var empresaRopository = new EmpresaRepository();
+            var empresa = await empresaRopository.GetEmpresaId(id);
 
             if(empresa == null)
                 return Ok(new { message = "Empresa nao encontrada" });
 
             try
             {
-                await empresaHandler.RemoveEmpresa(empresa);
+                await empresaRopository.RemoveEmpresa(empresa);
                 return empresa;
             }
             catch (Exception)

@@ -12,6 +12,11 @@ namespace EmpreasAPI.Domain.Models
 {
     public class EmpresaWS
     {
+        public EmpresaWS()
+        {
+
+        }
+
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Este campo é obrigatorio")]
@@ -64,6 +69,10 @@ namespace EmpreasAPI.Domain.Models
         [JsonProperty("capital_social")]
         public string CapitalSocial { get; set; }
 
+        public bool ValidateCNPJ(string cnpj)
+        {
+            return cnpj.Length == 14 ? true : false;
+        }
     }
 
 }
